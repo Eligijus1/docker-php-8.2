@@ -1,4 +1,6 @@
+# Services (or containers) we want to run as part of our application:
 services:
+  # PHP 8.2 application:
   app:
     image: php:8.2-apache
     ports:
@@ -6,3 +8,20 @@ services:
     working_dir: /var/www/html
     volumes:
       - './src:/var/www/html'
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: test1
+
+  # MySQL 5.7 DB:
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: test1
+
+volumes:
+  todo-mysql-data:
